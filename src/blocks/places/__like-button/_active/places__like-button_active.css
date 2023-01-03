@@ -1,0 +1,4 @@
+.places__like-button_active,
+.places__like-button_active:hover {
+  background: url('../../../../images/like-icon-active.svg') center / cover no-repeat;
+}

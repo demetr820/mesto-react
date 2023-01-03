@@ -1,0 +1,17 @@
+.places__button-delete {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 18px;
+  height: 19px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent url('../../../images/thrash-icon.svg') top / cover no-repeat;
+  transition: .4s;
+  cursor: pointer;
+}
+.places__button-delete:hover {
+  opacity: .6;
+}
