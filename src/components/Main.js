@@ -1,8 +1,6 @@
-import PopupWithForm from "./PopupWithForm";
 import { useEffect, useState } from 'react';
 import { api } from '../utils/api';
 import Card from './Card';
-import ImagePopup from './ImagePopup';
 
 function Main(props) {
   const [userInfo, setUserInfo] = useState({
@@ -28,7 +26,7 @@ function Main(props) {
     .catch(err => console.log(err));
   }, []);
   const places = cards.map(place => {
-    return <Card key={place._id} card={place} onCardClick={props.handleCardClick} />
+    return <Card key={place._id} card={place} onCardClick={props.onCardClick} />
   })
   return (
     <main className="content">
@@ -61,92 +59,6 @@ function Main(props) {
         >
           { places }
         </section>
-        <PopupWithForm
-            title="Редактировать профиль"
-            name="profile"
-            isOpen={props.isEditProfilePopupOpen}
-            onClose={props.closeAllPopups}
-          >
-            <input
-              className="popup__input popup__input_type_user-name"
-              type="text"
-              name="name"
-              aria-label="user-name"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-            <span className="popup__error"></span>
-            <input
-              className="popup__input popup__input_type_description"
-              type="text"
-              name="about"
-              aria-label="user-description"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-            <span className="popup__error"></span>
-            <button className="popup__button-submit" type="submit">Сохранить</button>
-        </PopupWithForm>
-        <PopupWithForm
-          title="Обновить аватар"
-          name="avatar"
-          isOpen={props.isEditAvatarPopupOpen}
-          onClose={props.closeAllPopups}
-        >
-          <input
-            className="popup__input popup__input_type_user-name"
-            type="url"
-            name="avatar"
-            aria-label="user-avatar"
-            required
-          />
-          <span className="popup__error"></span>
-          <button className="popup__button-submit" type="submit">Сохранить</button>
-        </PopupWithForm>
-        <PopupWithForm
-          title="Новое место"
-          name="new-card"
-          isOpen={props.isAddPlacePopupOpen}
-          onClose={props.closeAllPopups}
-        >
-          <input
-              className="popup__input popup__input_type_name"
-              type="text"
-              name="name"
-              aria-label="name"
-              placeholder="Название"
-              minLength="2"
-              maxLength="30"
-              required
-            />
-            <span className="popup__error"></span>
-            <input
-              className="popup__input popup__input_type_link"
-              type="url"
-              name="link"
-              aria-label="link"
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <span className="popup__error"></span>
-            <button
-              className="popup__button-submit popup__button-submit_disabled"
-              type="submit"
-              disabled
-            >
-              Создать
-            </button>
-        </PopupWithForm>
-        <PopupWithForm
-          title="Вы уверены?"
-          name="confirm"
-          onClose={props.closeAllPopups}
-        >
-          <button className="popup__button-submit" type="submit">Да</button>
-        </PopupWithForm>
-        <ImagePopup card={props.selectedCard}  onClose={props.closeAllPopups} />
       </main>
   )
 }

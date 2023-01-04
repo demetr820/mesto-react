@@ -10,7 +10,10 @@ function Card(props) {
             type="button"
             aria-label="delete"
           ></button>
-          <img className="places__image" src={link} onClick={handleClick} />
+          <img className="places__image"
+          src={link} onClick={handleClick}
+          alt={name}
+          />
           <div className="places__body">
             <h2 className="places__title">{name}</h2>
             <div className="places__like-block">
