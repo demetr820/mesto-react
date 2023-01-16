@@ -1,32 +1,17 @@
-import { useEffect, useState } from 'react';
-import { api } from '../utils/api';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Card from './Card';
 
 function Main(props) {
-  const [userInfo, setUserInfo] = useState({
-    userName: '',
-    userDescription: '',
-    userAvatar: ''
-  })
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    Promise.all([
-      api.getUserInfo()
-      .then(data => {
-        setUserInfo({
-          userName: data.name,
-          userDescription: data.about,
-          userAvatar: data.avatar
-        })
-      }),
-      api.getInitialCards()
-      .then(data => setCards(data))
-    ])
-    .catch(err => console.log(err));
-  }, []);
-  const places = cards.map(place => {
-    return <Card key={place._id} card={place} onCardClick={props.onCardClick} />
+  const currentUser = useContext(CurrentUserContext);
+  const places = props.cards.map(place => {
+    return <Card
+      key={place._id}
+      card={place}
+      onCardClick={props.onCardClick}
+      onCardLike={props.onCardLike}
+      onCardDelete={props.onCardDelete}
+    />
   })
   return (
     <main className="content">
@@ -34,11 +19,17 @@ function Main(props) {
           <div className="profile__image-container"
             onClick={props.onEditAvatar}
           >
-            <img className="profile__image" src={userInfo.userAvatar} alt={userInfo.userName} />
+            <img className="profile__image"
+            src={currentUser.avatar} alt={currentUser.name}
+            />
           </div>
           <div className="profile__text">
-            <h1 className="profile__user-name">{userInfo.userName}</h1>
-            <p className="profile__description">{userInfo.userDescription}</p>
+            <h1 className="profile__user-name">
+            {currentUser.name}
+            </h1>
+            <p className="profile__description">
+            {currentUser.about}
+            </p>
             <button
               className="profile__button profile__button_edit"
               aria-label="редактировать"

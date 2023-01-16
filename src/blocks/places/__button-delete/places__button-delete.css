@@ -1,5 +1,5 @@
 .places__button-delete {
-  display: none;
+  display: block;
   position: absolute;
   top: 20px;
   right: 20px;

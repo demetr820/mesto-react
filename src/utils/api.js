@@ -29,7 +29,7 @@ class Api {
     })
     .then(response => this._checkResponse(response))
   }
-  updateProfile(item) {
+  setUserInfo(item) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
@@ -40,7 +40,7 @@ class Api {
     })
     .then(response => this._checkResponse(response))
   }
-  updateProfileAvatar(item) {
+  setUserAvatar(item) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
@@ -51,8 +51,8 @@ class Api {
     })
     .then(response => this._checkResponse(response))
   }
-  handleLike(id, isLiked) {
-    if (isLiked === false) {
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked === true) {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: "PUT",
         headers: {
@@ -61,7 +61,6 @@ class Api {
         }
       })
       .then(response => this._checkResponse(response))
-      .catch(err => Promise.reject(err));
     } else {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: "DELETE",
